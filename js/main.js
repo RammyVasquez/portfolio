@@ -19,16 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carrusel para la sección Héroe
     const slides = document.querySelectorAll('.hero-slide');
-    const dots = document.querySelectorAll('.dot');
     let currentSlide = 0;
 
     function showSlide(index) {
         slides.forEach((slide, i) => {
             slide.classList.remove('active');
-            dots[i].classList.remove('active');
             if (i === index) {
                 slide.classList.add('active');
-                dots[i].classList.add('active');
             }
         });
     }
@@ -38,17 +35,22 @@ document.addEventListener('DOMContentLoaded', () => {
         showSlide(currentSlide);
     }
 
-    // Hacer clic en los puntos
-    dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-            currentSlide = parseInt(dot.getAttribute('data-slide'));
-            showSlide(currentSlide);
+    setInterval(nextSlide, 5000);
+    showSlide(currentSlide);
+
+    // Efecto de volteo en servicios para dispositivos táctiles
+    const serviceItems = document.querySelectorAll('.service-item');
+    serviceItems.forEach(item => {
+        item.addEventListener('touchstart', () => {
+            item.classList.toggle('flipped');
         });
     });
 
-    // Iniciar el carrusel: cambiar cada 5 segundos
-    setInterval(nextSlide, 5000);
-
-    // Mostrar la primera imagen al cargar
-    showSlide(currentSlide);
+    // Efecto de rebote en la imagen de "Acerca de mí" para dispositivos táctiles
+    const aboutImage = document.querySelector('.about-image img');
+    aboutImage.addEventListener('touchstart', () => {
+        aboutImage.style.animation = 'none'; // Reinicia la animación
+        void aboutImage.offsetWidth; // Forzar el reinicio
+        aboutImage.style.animation = 'bounce 1s ease'; // Reaplicar la animación
+    });
 });

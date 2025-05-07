@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 setTimeout(() => {
                     entry.target.classList.add('visible');
-                }, index * 200); // Retraso escalonado
+                }, index * 200);
             }
         });
     }, { threshold: 0.1 });
