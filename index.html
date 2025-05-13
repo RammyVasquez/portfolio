@@ -11,22 +11,26 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
 </head>
 <body>
     <!-- Navegación -->
     <header>
         <nav class="navbar">
             <div class="logo">
+                <a href="#home" aria-label="Inicio">
                 <img src="assets/images/logo-bg.png" alt="Logo">
             </div>
             <ul class="nav-links">
-                <li><a href="#home">Inicio</a></li>
-                <li><a href="#services">Servicios</a></li>
-                <li><a href="#portfolio">Portafolio</a></li>
-                <li><a href="#about">Acerca</a></li>
-                <li><a href="#contact">Contacto</a></li>
+                <li><a href="#home" aria-label="Ir a la sección de inicio">Inicio</a></li>
+                <li><a href="#services" aria-label="Ir a la sección de servicios">Servicios</a></li>
+                <li><a href="#portfolio" aria-label="Ir a la sección de portafolio">Portafolio</a></li>
+                <li><a href="#about" aria-label="Ir a la sección acerca de mí">Acerca</a></li>
+                <li><a href="#tools" aria-label="Ir a la sección de herramientas">Herramientas</a></li>
+                <li><a href="#contact" aria-label="Ir a la sección de contacto">Contacto</a></li>
             </ul>
-            <div class="menu-toggle">
+            <div class="menu-toggle" aria-label="Toggle menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -35,71 +39,115 @@
     </header>
 
     <!-- Sección Héroe -->
-<section id="home" class="hero">
-    <div class="hero-carousel">
-        <div class="hero-slide active" style="background-image: url('assets/images/hero-bg.jpg');"></div>
-        <div class="hero-slide" style="background-image: url('assets/images/hero2.jpg');"></div>
-        <div class="hero-slide" style="background-image: url('assets/images/hero3.jpg');"></div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <h1>Transforma tu Negocio</h1>
-        <p>Soluciones digitales modernas, diseñadas para destacar en cualquier dispositivo.</p>
-        <a href="#contact" class="cta-button">¡Comienza Ahora!</a>
-        <div class="carousel-dots">
-            <span class="dot active" data-slide="0"></span>
-            <span class="dot" data-slide="1"></span>
-            <span class="dot" data-slide="2"></span>
+    <section id="home" class="hero">
+        <div class="hero-carousel">
+            <div class="hero-slide active" style="background-image: url('assets/images/hero-bg.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('assets/images/hero2.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('assets/images/hero3.jpg');"></div>
         </div>
-    </div>
-</section>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Transforma tu Negocio</h1>
+            <p>Soluciones digitales modernas, diseñadas para destacar en cualquier dispositivo.</p>
+            <p>Convierte cualquier idea en realidad: sitios web impactantes, aplicaciones innovadoras y soluciones digitales a tu medida.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="cta-button">¡Contáctame Ahora!</a>
+                <a href="https://www.linkedin.com/in/ramses-urquijo-022104217/" class="cta-button secondary" target="_blank" rel="noopener noreferrer">Ver CV</a>
+            </div>
+            <div class="carousel-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+        </div>
+    </section>
 
     <!-- Sección Servicios -->
-<section id="services" class="services">
-    <h2>Nuestros Servicios</h2>
-    <div class="services-grid">
-        <div class="service-item">
-            <div class="service-inner">
-                <div class="service-front">
-                    <i class="fas fa-code fa-3x"></i>
-                    <h3>Diseño Web</h3>
+    <section id="services" class="services">
+        <div id="services-particles" class="particles-bg"></div>
+        <h2>Mis Servicios</h2>
+        <div class="services-grid">
+            <div class="service-item">
+                <div class="service-inner">
+                    <div class="service-front">
+                        <i class="fas fa-code fa-3x"></i>
+                        <h3>Diseño Web</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>Diseño Web</h3>
+                        <p>Creación de sitios web modernos y responsivos.</p>
+                    </div>
                 </div>
-                <div class="service-back">
-                    <h3>Diseño Web</h3>
-                    <p>Creación de sitios web modernos y responsivos.</p>
+            </div>
+            <div class="service-item">
+                <div class="service-inner">
+                    <div class="service-front">
+                        <i class="fas fa-search fa-3x"></i>
+                        <h3>SEO</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>SEO</h3>
+                        <p>Optimización para motores de búsqueda.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-inner">
+                    <div class="service-front">
+                        <i class="fas fa-bullhorn fa-3x"></i>
+                        <h3>Marketing</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>Marketing</h3>
+                        <p>Estrategias digitales para crecer.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-inner">
+                    <div class="service-front">
+                        <i class="fas fa-tools fa-3x"></i>
+                        <h3>Mantenimiento y Soporte</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>Mantenimiento y Soporte</h3>
+                        <p>Servicios de actualización, monitoreo y soporte técnico para garantizar el funcionamiento óptimo de tus aplicaciones.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-inner">
+                    <div class="service-front">
+                        <i class="fas fa-server fa-3x"></i>
+                        <h3>APIs y Backend</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>APIs y Backend</h3>
+                        <p>Desarrollo de APIs robustas y sistemas backend escalables para integrar y potenciar tus aplicaciones.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-inner">
+                    <div class="service-front">
+                        <i class="fas fa-database fa-3x"></i>
+                        <h3>Bases de Datos</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>Bases de Datos</h3>
+                        <p>Diseño, implementación y optimización de bases de datos para un almacenamiento eficiente y seguro.</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="service-item">
-            <div class="service-inner">
-                <div class="service-front">
-                    <i class="fas fa-search fa-3x"></i>
-                    <h3>SEO</h3>
-                </div>
-                <div class="service-back">
-                    <h3>SEO</h3>
-                    <p>Optimización para motores de búsqueda.</p>
-                </div>
-            </div>
-        </div>
-        <div class="service-item">
-            <div class="service-inner">
-                <div class="service-front">
-                    <i class="fas fa-bullhorn fa-3x"></i>
-                    <h3>Marketing</h3>
-                </div>
-                <div class="service-back">
-                    <h3>Marketing</h3>
-                    <p>Estrategias digitales para crecer.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- Sección Portafolio -->
+    <!-- Sección Portafolio -->
     <section id="portfolio" class="portfolio">
+        <div id="portfolio-particles" class="particles-bg"></div>
         <h2>Portafolio</h2>
+        <p class="portfolio-intro">Estos son algunos de mis proyectos más destacados, diseñados para resolver problemas reales con soluciones innovadoras y eficientes.</p>
         <div class="portfolio-grid">
             <div class="portfolio-item">
                 <img src="assets/images/proyecto1.jpg" alt="Sitio web para empresa de tecnología">
@@ -112,7 +160,7 @@
             <div class="portfolio-item">
                 <img src="assets/images/proyecto2.jpg" alt="Aplicación web interactiva">
                 <div class="portfolio-overlay">
-                    <h3>Aplicación Web Medica</h3>
+                    <h3>Aplicación Web Médica</h3>
                     <p>Plataforma interactiva para gestión de usuarios.</p>
                     <a href="https://rammyvasquez.github.io/medik/" class="portfolio-button" target="_blank">Ver Proyecto</a>
                 </div>
@@ -128,7 +176,7 @@
             <div class="portfolio-item">
                 <img src="assets/images/proyecto-4.jpg" alt="Plataforma de aprendizaje">
                 <div class="portfolio-overlay">
-                    <h3>Sistema Control Volumetrico</h3>
+                    <h3>Sistema Control Volumétrico</h3>
                     <p>Un Sistema de Control Volumétrico contempla a todos los involucrados en la cadena de hidrocarburos.</p>
                     <a href="https://cadisaenlinea.com.mx/" class="portfolio-button" target="_blank">Ver Proyecto</a>
                 </div>
@@ -154,6 +202,7 @@
 
     <!-- Sección about -->
     <section id="about" class="about">
+        <div id="about-particles" class="particles-bg"></div>
         <h2>Acerca de Mi</h2>
         <div class="about-content">
             <div class="about-text">
@@ -167,9 +216,73 @@
             </div>
         </div>
     </section>
+    <!-- Sección Herramientas -->
+    <section id="tools" class="tools">
+        <div id="tools-particles" class="particles-bg"></div>
+        <h2>Herramientas y Tecnologías</h2>
+        <div class="tools-grid">
+            <div class="tool-item">
+                <i class="fas fa-code fa-2x"></i>
+                <p>Visual Studio</p>
+            </div>
+            <div class="tool-item">
+                <i class="fas fa-database fa-2x"></i>
+                <p>SQL Server</p>
+            </div>
+            <div class="tool-item">
+                <i class="fab fa-php fa-2x"></i>
+                <p>PHP</p>
+            </div>
+            <div class="tool-item">
+                <i class="fab fa-github fa-2x"></i>
+                <p>GitHub</p>
+            </div>
+            <div class="tool-item">
+                <i class="fas fa-laptop-code fa-2x"></i>
+                <p>C#</p>
+            </div>
+            <div class="tool-item">
+                <i class="fas fa-network-wired fa-2x"></i>
+                <p>Postman</p>
+            </div>
+            <div class="tool-item">
+                <i class="fab fa-js fa-2x"></i>
+                <p>JavaScript</p>
+            </div>
+            <div class="tool-item">
+                <i class="fab fa-html5 fa-2x"></i>
+                <p>HTML5</p>
+            </div>
+            <div class="tool-item">
+                <i class="fab fa-css3-alt fa-2x"></i>
+                <p>CSS3</p>
+            </div>
+            <div class="tool-item">
+                <i class="fa-brands fa-bootstrap"></i>
+                <p>Bootstrap</p>
+            </div>
+            <div class="tool-item">
+                <i class="fa-solid fa-paint-brush"></i>
+                <p>Adobe Photoshop</p>
+            </div>
+            <div class="tool-item">
+                <i class="fa-brands fa-wordpress"></i>
+                <p>WordPress</p>
+            </div>
+            <div class="tool-item ">
+                <i class="fa-brands fa-jira"></i>
+                <p>Jira</p>
+            </div>
+            <div class="tool-item">
+                <i class="fa-brands fa-figma"></i>
+                <p>Figma</p>
+            </div>
+        </div>
+    </section>
 
     <!-- Sección Contacto -->
     <section id="contact" class="contact">
+        <div id="contact-particles" class="particles-bg"></div>
         <h2>Contacto</h2>
         <form class="contact-form" action="https://formspree.io/f/tu-id" method="POST">
             <input type="text" name="name" placeholder="Nombre" required>
@@ -180,6 +293,7 @@
     </section>
     <!-- Sección Versículo -->
     <section id="verse" class="verse">
+        <div id="verse-particles" class="particles-bg"></div>
         <div class="verse-content">
             <blockquote>
                 <p>"Y todo lo que hagan, háganlo de buen ánimo como para el Señor y no para los hombres" <br>— Colosenses 3:23</p>
@@ -188,18 +302,21 @@
     </section>
 
     <!-- Pie de página -->
+    <!-- Pie de página -->
     <footer>
         <div class="footer-content">
-            <p>© 2025 Mi Sitio Web. Todos los derechos reservados.</p>
+            <p>© <script>document.write(new Date().getFullYear())</script> Mi Sitio Web. Todos los derechos reservados.</p>
             <p>Contacto: ramurquijo@gmail.com</p>
             <div class="social-links">
                 <a href="https://www.facebook.com/ramses.vasquez/" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.instagram.com/ramurquijo/" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
                 <a href="https://www.linkedin.com/in/ramses-urquijo-022104217/" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://wa.me/526623465710" aria-label="Contactar por WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
     </footer>
     <script src="js/main.js"></script>
     <script src="js/animations.js"></script>
+
 </body>
 </html>
