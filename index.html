@@ -12,7 +12,54 @@
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 80%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #333;
+        }
+        .portfolio-item {
+            cursor: pointer;
+        }
+        .portfolio-overlay .portfolio-button {
+            display: none; /* Hide the 'Ver Proyecto' button */
+        }
+    </style>
 </head>
 <body>
     <!-- Navegación -->
@@ -143,59 +190,61 @@
     </section>
 
     <!-- Sección Portafolio -->
-    <!-- Sección Portafolio -->
     <section id="portfolio" class="portfolio">
         <div id="portfolio-particles" class="particles-bg"></div>
         <h2>Portafolio</h2>
         <p class="portfolio-intro">Estos son algunos de mis proyectos más destacados, diseñados para resolver problemas reales con soluciones innovadoras y eficientes.</p>
         <div class="portfolio-grid">
-            <div class="portfolio-item">
+            <div class="portfolio-item" onclick="openModal('Sitio Corporativo', 'Diseño y desarrollo de un sitio web para una empresa tecnológica.', ['assets/images/proyecto1.jpg'])">
                 <img src="assets/images/proyecto1.jpg" alt="Sitio web para empresa de tecnología">
                 <div class="portfolio-overlay">
                     <h3>Sitio Corporativo</h3>
                     <p>Diseño y desarrollo de un sitio web para una empresa tecnológica.</p>
-                    <a href="https://rammyvasquez.github.io/cadereyta_web/" class="portfolio-button" target="_blank">Ver Proyecto</a>
                 </div>
             </div>
-            <div class="portfolio-item">
+            <div class="portfolio-item" onclick="openModal('Aplicación Web Médica', 'Plataforma interactiva para gestión de usuarios.', ['assets/images/proyecto2.jpg'])">
                 <img src="assets/images/proyecto2.jpg" alt="Aplicación web interactiva">
                 <div class="portfolio-overlay">
                     <h3>Aplicación Web Médica</h3>
                     <p>Plataforma interactiva para gestión de usuarios.</p>
-                    <a href="https://rammyvasquez.github.io/medik/" class="portfolio-button" target="_blank">Ver Proyecto</a>
                 </div>
             </div>
-            <div class="portfolio-item">
-                <img src="assets/images/proyecto3.jpg" alt="E-commerce moderno">
+            <div class="portfolio-item" onclick="openModal('E-commerce', 'Tienda online con diseño moderno y optimizado.', ['assets/images/proyecto3.png'])">
+                <img src="assets/images/proyecto3.png" alt="E-commerce moderno">
                 <div class="portfolio-overlay">
                     <h3>E-commerce</h3>
                     <p>Tienda online con diseño moderno y optimizado.</p>
-                    <a href="https://rammyvasquez.github.io/wordpress-test/" class="portfolio-button" target="_blank">Ver Proyecto</a>
                 </div>
             </div>
-            <div class="portfolio-item">
+            <div class="portfolio-item" onclick="openModal('Sistema Control Volumétrico', 'Un Sistema de Control Volumétrico contempla a todos los involucrados en la cadena de hidrocarburos.', ['assets/images/proyecto-4.jpg'])">
                 <img src="assets/images/proyecto-4.jpg" alt="Plataforma de aprendizaje">
                 <div class="portfolio-overlay">
                     <h3>Sistema Control Volumétrico</h3>
                     <p>Un Sistema de Control Volumétrico contempla a todos los involucrados en la cadena de hidrocarburos.</p>
-                    <a href="https://cadisaenlinea.com.mx/" class="portfolio-button" target="_blank">Ver Proyecto</a>
                 </div>
             </div>
-            <div class="portfolio-item">
+            <div class="portfolio-item" onclick="openModal('Aplicación Móvil', 'App para gestión de tareas en iOS y Android.', ['assets/images/proyecto5.jpg'])">
                 <img src="assets/images/proyecto5.jpg" alt="Aplicación móvil">
                 <div class="portfolio-overlay">
                     <h3>Aplicación Móvil</h3>
                     <p>App para gestión de tareas en iOS y Android.</p>
-                    <a href="https://ramsesvasquez09.wordpress.com/" class="portfolio-button" target="_blank">Ver Proyecto</a>
                 </div>
             </div>
-            <div class="portfolio-item">
+            <div class="portfolio-item" onclick="openModal('Dashboard', 'Panel de control para análisis de datos empresariales.', ['assets/images/proyecto6.jpg'])">
                 <img src="assets/images/proyecto6.jpg" alt="Dashboard empresarial">
                 <div class="portfolio-overlay">
                     <h3>Dashboard</h3>
                     <p>Panel de control para análisis de datos empresariales.</p>
-                    <a href="https://ramsesvasquez09.wixsite.com/ramsesysiria" class="portfolio-button" target="_blank">Ver Proyecto</a>
                 </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div id="portfolioModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+                <div id="modalImages"></div>
             </div>
         </div>
     </section>
@@ -209,10 +258,10 @@
                 <p>Soy un desarrollador web y de aplicaciones con mas de 7 años de experiencia creando soluciones digitales a la medida.</p>
                 <p>Mi enfoque se centra en la calidad, la eficiencia y la innovación, asegurando que cada proyecto no solo cumpla con los objetivos de mis clientes, sino que los supere.</p>
                 <p>Explora mi portafolio y descubre cómo puedo aportar valor a tu próximo proyecto.</p><br>
-                <a href="#portfolio" class="cta-button">Ver Portafolio</a>
+                <a href="https://www.linkedin.com/in/ramses-urquijo-022104217/" target="_blank" class="cta-button">Me gustan los retos.</a>
             </div>
             <div class="about-image">
-                <img src="assets/images/about.jpg" alt="Desarrollador trabajando">
+                <img src="assets/images/aboutme.jpeg" alt="Desarrollador trabajando">
             </div>
         </div>
     </section>
@@ -269,7 +318,7 @@
                 <i class="fa-brands fa-wordpress"></i>
                 <p>WordPress</p>
             </div>
-            <div class="tool-item ">
+            <div class="tool-item">
                 <i class="fa-brands fa-jira"></i>
                 <p>Jira</p>
             </div>
@@ -302,7 +351,6 @@
     </section>
 
     <!-- Pie de página -->
-    <!-- Pie de página -->
     <footer>
         <div class="footer-content">
             <p>© <script>document.write(new Date().getFullYear())</script> Mi Sitio Web. Todos los derechos reservados.</p>
@@ -317,6 +365,39 @@
     </footer>
     <script src="js/main.js"></script>
     <script src="js/animations.js"></script>
+    <script>
+        function openModal(title, description, images) {
+            const modal = document.getElementById('portfolioModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalImages = document.getElementById('modalImages');
 
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            modalImages.innerHTML = '';
+
+            images.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = title;
+                modalImages.appendChild(img);
+            });
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('portfolioModal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('portfolioModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
 </body>
 </html>
