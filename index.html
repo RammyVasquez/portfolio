@@ -4,150 +4,1003 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Soluciones digitales modernas y responsivas para tu negocio">
-    <meta name="keywords" content="diseño web, SEO, marketing digital, portafolio">
-    <meta name="author" content="Ramses">
-    <title>Portafolio</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" href="favicon.ico">
+    <title>Portafolio - Ramses</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <style>
-        /* Modal Styles */
+        /* Variables */
+        :root {
+            --primary-color: #00aaff;
+            --secondary-color: #ffffff;
+            --bg-color: #0a0a0a;
+            --overlay-color: rgba(0, 0, 0, 0.7);
+            --text-color: #e0e0e0;
+            --card-bg: #1a1a1a;
+            --accent-gradient: linear-gradient(135deg, #00aaff 0%, #00ff88 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-color);
+            background: var(--bg-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navegación */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: transparent;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 170, 255, 0.1);
+        }
+
+        .logo img {
+            height: 60px;
+            filter: drop-shadow(0 0 10px rgba(0, 170, 255, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle .bar {
+            width: 30px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        /* Héroe */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1.1);
+            transition: opacity 1.5s ease-in-out, transform 8s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 170, 255, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            color: var(--secondary-color);
+            z-index: 2;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent-gradient);
+            color: var(--secondary-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 170, 255, 0.5);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Secciones generales */
+        section {
+            padding: 6rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            perspective: 1000px;
+            height: 250px;
+        }
+
+        .service-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s ease;
+            transform-style: preserve-3d;
+        }
+
+        .service-item:hover .service-inner {
+            transform: rotateY(180deg);
+        }
+
+        .service-front, .service-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2.5rem;
+            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+        }
+
+        .service-front::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: var(--accent-gradient);
+            border-radius: 20px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-item:hover .service-front::before {
+            opacity: 0.2;
+        }
+
+        .service-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, rgba(0, 170, 255, 0.1) 0%, rgba(0, 255, 136, 0.1) 100%);
+        }
+
+        .service-front i {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 3rem;
+            filter: drop-shadow(0 0 10px rgba(0, 170, 255, 0.5));
+        }
+
+        /* Portafolio */
+        .portfolio-intro {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 170, 255, 0.3);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 170, 255, 0.9) 0%, rgba(0, 255, 136, 0.9) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.1s;
+        }
+
+        .portfolio-item:hover .portfolio-overlay h3 {
+            transform: translateY(0);
+        }
+
+        .portfolio-overlay p {
+            color: #fff;
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.2s;
+        }
+
+        .portfolio-item:hover .portfolio-overlay p {
+            transform: translateY(0);
+        }
+
+        /* About */
+        .about {
+            background: linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 170, 255, 0.2);
+        }
+
+        /* Tools */
+        .tools {
+            background: #0f0f0f;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .tool-item {
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 170, 255, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .tool-item i {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            font-size: 2rem;
+        }
+
+        .tool-item p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Contacto */
+        .contact {
+            position: relative;
+            z-index: 1; /* Asegura que la sección esté encima */
+        }
+
+        .contact-form {
+            position: relative;
+            z-index: 2; /* Formulario encima de todo */
+            background: rgba(26, 26, 26, 0.8);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(0, 170, 255, 0.4);
+            border-radius: 12px;
+            color: var(--text-color);
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 3;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.4);
+            background: rgba(50, 50, 50, 0.9);
+        }
+
+        .contact-form textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 1.1rem;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 3;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 170, 255, 0.5);
+        }
+
+        /* Versículo */
+        .verse {
+            padding: 8rem 3rem;
+            background: #0a0a0a;
+            text-align: center;
+        }
+
+        .verse-content blockquote {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: #aaa;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .verse-content blockquote p::before {
+            content: '“';
+            color: var(--primary-color);
+            font-size: 3rem;
+            margin-right: 0.5rem;
+        }
+
+        .verse-content blockquote p::after {
+            content: '”';
+            color: var(--primary-color);
+            font-size: 3rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 2000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
+            background-color: rgba(0, 0, 0, 0.95);
             justify-content: center;
             align-items: center;
-            overflow: auto;
+            animation: fadeIn 0.3s ease;
         }
+
         .modal-content {
             max-width: 90%;
-            max-height: 85%;
-            margin: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: var(--card-bg); /* Matches card background from styles.css */
-            padding: 1.5rem;
-            border-radius: 10px;
+            max-height: 90%;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: 20px;
             position: relative;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            overflow-y: auto; /* Allow scrolling if content overflows */
+            box-shadow: 0 20px 60px rgba(0, 170, 255, 0.3);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            animation: slideUp 0.4s ease;
         }
-        .modal-content img {
-            max-width: 100%;
-            max-height: 60vh; /* Limit image height to fit within viewport */
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-            object-fit: contain; /* Ensure images don't distort */
-        }
+
         .modal-content h3 {
-            color: var(--secondary-color); /* White text */
-            font-size: 1.8rem;
+            color: var(--secondary-color);
+            font-size: 2rem;
             font-weight: 600;
             margin-bottom: 1rem;
             text-align: center;
-        }
-        .modal-content p {
-            color: #b0b0b0; /* Matches about section text */
-            font-size: 1.1rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--secondary-color);
-            transition: color 0.3s ease;
-            padding: 10px; /* Larger touch area */
-        }
-        .close:hover {
-            color: var(--primary-color); /* Blue on hover */
-        }
-        .portfolio-item {
-            cursor: pointer;
-        }
-        .portfolio-overlay .portfolio-button {
-            display: none; /* Hide the 'Ver Proyecto' button */
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Mobile Adjustments */
+        .carousel-images {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+        }
+
+        .carousel-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .carousel-image.active {
+            opacity: 1;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 1rem;
+        }
+
+        .carousel-btn {
+            background: rgba(0, 170, 255, 0.8);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary-color);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.6);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(0, 170, 255, 0.8);
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .close:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+            background: rgba(0, 170, 255, 0.2);
+        }
+
+        /* Particles */
+        .particles-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: #111;
+            text-align: center;
+            color: #b0b0b0;
+        }
+
+        footer a {
+            color: #b0b0b0;
+            transition: color 0.3s ease;
+            font-size: 1.5rem;
+            margin: 0 1rem;
+        }
+
+        footer a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
-            .modal-content {
-                max-width: 95%;
-                max-height: 90%;
-                padding: 1rem;
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-content p { font-size: 1.2rem; }
+            .menu-toggle { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--bg-color);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                display: none;
             }
-            .modal-content h3 {
-                font-size: 1.5rem;
-            }
-            .modal-content p {
-                font-size: 1rem;
-            }
-            .modal-content img {
-                max-height: 50vh; /* Smaller image height for tablets */
-            }
-            .close {
-                font-size: 1.8rem;
-                right: 10px;
-                top: 8px;
-            }
+            .nav-links.open { display: flex; }
+            .carousel-images { height: 350px; }
         }
 
         @media (max-width: 430px) {
-            .modal-content {
-                max-width: 98%;
-                max-height: 95%;
-                padding: 0.8rem;
-            }
-            .modal-content h3 {
-                font-size: 1.3rem;
-                margin-bottom: 0.8rem;
-            }
-            .modal-content p {
-                font-size: 0.9rem;
-                margin-bottom: 0.8rem;
-            }
-            .modal-content img {
-                max-height: 40vh; /* Further reduce image height for small screens */
-            }
-            .close {
-                font-size: 1.5rem;
-                right: 8px;
-                top: 8px;
-                padding: 8px;
-            }
+            .carousel-images { height: 250px; }
+            .modal-content h3 { font-size: 1.5rem; }
         }
+        /* 1. Héroe más compacto */
+@media (max-width: 768px) {
+    .hero-content {
+        padding: 1.5rem;
+    }
+    .hero-content h1 {
+        font-size: 2.8rem;
+        line-height: 1.2;
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cta-button {
+        width: 80%;
+        max-width: 300px;
+        padding: 0.9rem 1.5rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* 2. Secciones con menos padding */
+@media (max-width: 768px) {
+    section {
+        padding: 4rem 1.5rem;
+    }
+    section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* 3. Servicios: cards más pequeñas y sin altura fija */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+    }
+    .service-item {
+        height: auto;
+        min-height: 180px;
+    }
+    .service-front, .service-back {
+        padding: 1.8rem;
+    }
+    .service-front i {
+        font-size: 2.2rem;
+    }
+    .service-front h3, .service-back h3 {
+        font-size: 1.3rem;
+    }
+    .service-back p {
+        font-size: 0.95rem;
+    }
+}
+
+/* 4. Portafolio: 1 columna, imágenes más pequeñas */
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .portfolio-item img {
+        height: 220px;
+    }
+    .portfolio-overlay h3 {
+        font-size: 1.5rem;
+    }
+    .portfolio-overlay p {
+        font-size: 1rem;
+    }
+}
+
+/* 5. Modal: más pequeño y usable */
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 95%;
+        max-height: 92%;
+        padding: 1.5rem;
+    }
+    .carousel-images {
+        height: 280px !important;
+    }
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+    .modal-content h3 {
+        font-size: 1.6rem;
+    }
+    .modal-content p {
+        font-size: 1rem;
+    }
+    .close {
+        top: 10px;
+        right: 15px;
+        font-size: 2rem;
+    }
+}
+
+/* 6. Formulario contacto más compacto */
+@media (max-width: 768px) {
+    .contact-form {
+        padding: 2rem;
+        max-width: 100%;
+    }
+    .contact-form input,
+    .contact-form textarea {
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+    }
+    .contact-form button {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* 7. Menú móvil más suave */
+@media (max-width: 768px) {
+    .nav-links {
+        transition: transform 0.4s ease;
+        transform: translateX(-100%);
+    }
+    .nav-links.open {
+        transform: translateX(0);
+    }
+    .menu-toggle.open .bar:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+    .menu-toggle.open .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.open .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+}
+
+/* 8. About: imagen encima del texto */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    .about-image {
+        order: -1;
+        margin-bottom: 2rem;
+    }
+    .about-image img {
+        border-radius: 15px;
+    }
+}
+
+/* 9. Herramientas: 3 columnas */
+@media (max-width: 768px) {
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+    }
+    .tool-item {
+        padding: 1rem;
+    }
+    .tool-item i {
+        font-size: 1.6rem;
+    }
+    .tool-item p {
+        font-size: 0.9rem;
+    }
+}
+
+/* 10. Versículo más pequeño */
+@media (max-width: 768px) {
+    .verse {
+        padding: 5rem 1.5rem;
+    }
+    .verse-content blockquote {
+        font-size: 1.4rem;
+    }
+    .verse-content blockquote p::before,
+    .verse-content blockquote p::after {
+        font-size: 2.2rem;
+    }
+}
+
+/* 11. Footer más compacto */
+@media (max-width: 768px) {
+    footer {
+        padding: 2rem 1rem;
+    }
+    footer a {
+        margin: 0 0.8rem;
+        font-size: 1.3rem;
+    }
+}
+
+/* 12. Desactivar interacciones de particles en móvil (mejora rendimiento) */
+@media (max-width: 768px) {
+    .particles-bg canvas {
+        pointer-events: none !important;
+    }
+    /* Opcional: menos partículas en móvil */
+    #services-particles, #portfolio-particles, #about-particles,
+    #tools-particles, #contact-particles, #verse-particles {
+        opacity: 0.6;
+    }
+}
     </style>
 </head>
 <body>
-    <!-- Navegación -->
     <header>
         <nav class="navbar">
             <div class="logo">
-                <a href="#home" aria-label="Inicio">
-                <img src="assets/images/logo-bg.png" alt="Logo">
+                <a href="#home">
+                    <img src="assets/images/logo-bg.png" alt="Logo">
+                </a>
             </div>
             <ul class="nav-links">
-                <li><a href="#home" aria-label="Ir a la sección de inicio">Inicio</a></li>
-                <li><a href="#services" aria-label="Ir a la sección de servicios">Servicios</a></li>
-                <li><a href="#portfolio" aria-label="Ir a la sección de portafolio">Portafolio</a></li>
-                <li><a href="#about" aria-label="Ir a la sección acerca de mí">Acerca</a></li>
-                <li><a href="#tools" aria-label="Ir a la sección de herramientas">Herramientas</a></li>
-                <li><a href="#contact" aria-label="Ir a la sección de contacto">Contacto</a></li>
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#services">Servicios</a></li>
+                <li><a href="#portfolio">Portafolio</a></li>
+                <li><a href="#about">Sobre Mí</a></li>
+                <li><a href="#tools">Herramientas</a></li>
+                <li><a href="#contact">Contacto</a></li>
             </ul>
-            <div class="menu-toggle" aria-label="Toggle menu">
+            <div class="menu-toggle">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -155,179 +1008,211 @@
         </nav>
     </header>
 
-    <!-- Sección Héroe -->
+    <!-- Héroe -->
     <section id="home" class="hero">
         <div class="hero-carousel">
-            <div class="hero-slide active" style="background-image: url('assets/images/hero-bg.jpg');"></div>
-            <div class="hero-slide" style="background-image: url('assets/images/hero2.jpg');"></div>
-            <div class="hero-slide" style="background-image: url('assets/images/hero3.jpg');"></div>
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1920');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920');"></div>
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>Transforma tu Negocio</h1>
             <p>Soluciones digitales modernas, diseñadas para destacar en cualquier dispositivo.</p>
-            <p>Convierte cualquier idea en realidad: sitios web impactantes, aplicaciones innovadoras y soluciones digitales a tu medida.</p>
+            <p>Convierte cualquier idea en realidad digital</p>
             <div class="hero-buttons">
                 <a href="#contact" class="cta-button">¡Contáctame Ahora!</a>
-                <a href="https://www.linkedin.com/in/ramses-urquijo-022104217/" class="cta-button secondary" target="_blank" rel="noopener noreferrer">Ver CV</a>
-            </div>
-            <div class="carousel-dots">
-                <span class="dot active" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
+                <a href="https://www.linkedin.com/in/ramses-urquijo-022104217/" class="cta-button secondary" target="_blank">Ver CV</a>
             </div>
         </div>
     </section>
 
-    <!-- Sección Servicios -->
+    <!-- Servicios -->
     <section id="services" class="services">
         <div id="services-particles" class="particles-bg"></div>
         <h2>Mis Servicios</h2>
         <div class="services-grid">
+            <!-- Servicio 1 -->
             <div class="service-item">
                 <div class="service-inner">
                     <div class="service-front">
-                        <i class="fas fa-code fa-3x"></i>
+                        <i class="fas fa-code"></i>
                         <h3>Diseño Web</h3>
                     </div>
                     <div class="service-back">
                         <h3>Diseño Web</h3>
-                        <p>Creación de sitios web modernos y responsivos.</p>
+                        <p>Creación de sitios web modernos, responsivos y optimizados para SEO.</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Servicio 2 -->
             <div class="service-item">
                 <div class="service-inner">
                     <div class="service-front">
-                        <i class="fas fa-search fa-3x"></i>
+                        <i class="fas fa-search"></i>
                         <h3>SEO</h3>
                     </div>
                     <div class="service-back">
                         <h3>SEO</h3>
-                        <p>Optimización para motores de búsqueda.</p>
+                        <p>Optimización para motores de búsqueda y mejora de posicionamiento orgánico.</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Servicio 3 -->
             <div class="service-item">
                 <div class="service-inner">
                     <div class="service-front">
-                        <i class="fas fa-bullhorn fa-3x"></i>
-                        <h3>Marketing</h3>
+                        <i class="fas fa-bullhorn"></i>
+                        <h3>Marketing Digital</h3>
                     </div>
                     <div class="service-back">
-                        <h3>Marketing</h3>
-                        <p>Estrategias digitales para crecer.</p>
+                        <h3>Marketing Digital</h3>
+                        <p>Estrategias en redes sociales, email marketing y anuncios pagos.</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Servicio 4 -->
             <div class="service-item">
                 <div class="service-inner">
                     <div class="service-front">
-                        <i class="fas fa-tools fa-3x"></i>
-                        <h3>Mantenimiento y Soporte</h3>
+                        <i class="fas fa-tools"></i>
+                        <h3>Mantenimiento</h3>
                     </div>
                     <div class="service-back">
-                        <h3>Mantenimiento y Soporte</h3>
-                        <p>Servicios de actualización, monitoreo y soporte técnico para garantizar el funcionamiento óptimo de tus aplicaciones.</p>
+                        <h3>Mantenimiento</h3>
+                        <p>Soporte técnico continuo, actualizaciones y monitoreo 24/7.</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Servicio 5 -->
             <div class="service-item">
                 <div class="service-inner">
                     <div class="service-front">
-                        <i class="fas fa-server fa-3x"></i>
-                        <h3>APIs y Backend</h3>
+                        <i class="fas fa-server"></i>
+                        <h3>Backend & APIs</h3>
                     </div>
                     <div class="service-back">
-                        <h3>APIs y Backend</h3>
-                        <p>Desarrollo de APIs robustas y sistemas backend escalables para integrar y potenciar tus aplicaciones.</p>
+                        <h3>Backend & APIs</h3>
+                        <p>Desarrollo de APIs RESTful, microservicios y lógica del servidor.</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Servicio 6 -->
             <div class="service-item">
                 <div class="service-inner">
                     <div class="service-front">
-                        <i class="fas fa-database fa-3x"></i>
+                        <i class="fas fa-database"></i>
                         <h3>Bases de Datos</h3>
                     </div>
                     <div class="service-back">
                         <h3>Bases de Datos</h3>
-                        <p>Diseño, implementación y optimización de bases de datos para un almacenamiento eficiente y seguro.</p>
+                        <p>Diseño, optimización y administración de bases de datos SQL/NoSQL.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Portafolio -->
+    <!-- Portafolio -->
     <section id="portfolio" class="portfolio">
         <div id="portfolio-particles" class="particles-bg"></div>
         <h2>Portafolio</h2>
-        <p class="portfolio-intro">Estos son algunos de mis proyectos más destacados, diseñados para resolver problemas reales con soluciones innovadoras y eficientes.</p>
+        <p class="portfolio-intro">Proyectos destacados con soluciones innovadoras y resultados reales.</p>
         <div class="portfolio-grid">
-            <div class="portfolio-item" onclick="openModal('Sitio Corporativo', 'Diseño y desarrollo de un sitio web para una empresa tecnológica.', ['assets/images/proyecto1.jpg'])">
-                <img src="assets/images/proyecto1.jpg" alt="Sitio web para empresa de tecnología">
+
+            <!-- Proyecto 1 -->
+            <div class="portfolio-item" onclick="openCarousel('Sitio Corporativo', 'Plataforma web para empresa tecnológica con panel admin y CMS integrado.', ['assets/images/proyecto1.jpg', 'assets/images/proyecto2.jpg'])">
+                <img src="assets/images/proyecto1.jpg" alt="Sitio Corporativo">
                 <div class="portfolio-overlay">
                     <h3>Sitio Corporativo</h3>
-                    <p>Diseño y desarrollo de un sitio web para una empresa tecnológica.</p>
+                    <p>Click para ver más</p>
                 </div>
             </div>
-            <div class="portfolio-item" onclick="openModal('Aplicación Web Médica', 'Plataforma interactiva para gestión de usuarios.', ['assets/images/proyecto2.jpg'])">
-                <img src="assets/images/proyecto2.jpg" alt="Aplicación web interactiva">
+
+            <!-- Proyecto 2 -->
+            <div class="portfolio-item" onclick="openCarousel('App Médica', 'Sistema de gestión de citas y pacientes con notificaciones en tiempo real.', ['assets/images/proyecto2.jpg', 'images/app-medica-2.jpg'])">
+                <img src="assets/images/proyecto2.jpg" alt="App Médica">
                 <div class="portfolio-overlay">
-                    <h3>Aplicación Web Médica</h3>
-                    <p>Plataforma interactiva para gestión de usuarios.</p>
+                    <h3>App Médica</h3>
+                    <p>Click para ver más</p>
                 </div>
             </div>
-            <div class="portfolio-item" onclick="openModal('E-commerce', 'Tienda online con diseño moderno y optimizado.', ['assets/images/proyecto3.png'])">
-                <img src="assets/images/proyecto3.png" alt="E-commerce moderno">
+
+            <!-- Proyecto 3 -->
+            <div class="portfolio-item" onclick="openCarousel('E-commerce', 'Tienda online con carrito, pasarela de pago y panel de vendedor.', ['assets/images/proyecto3.jpg', 'images/ecommerce-2.jpg'])">
+                <img src="assets/images/proyecto3.jpg" alt="E-commerce">
                 <div class="portfolio-overlay">
                     <h3>E-commerce</h3>
-                    <p>Tienda online con diseño moderno y optimizado.</p>
+                    <p>Click para ver más</p>
                 </div>
             </div>
-            <div class="portfolio-item" onclick="openModal('Sistema Control Volumétrico', 'Un Sistema de Control Volumétrico contempla a todos los involucrados en la cadena de hidrocarburos.', ['assets/images/proyecto-4.jpg'])">
-                <img src="assets/images/proyecto-4.jpg" alt="Plataforma de aprendizaje">
+
+            <!-- Proyecto 4 -->
+            <div class="portfolio-item" onclick="openCarousel('Control Volumétrico', 'Sistema de monitoreo en tiempo real para hidrocarburos.', ['assets/images/proyecto4.jpg', 'images/control-volumetrico-2.jpg'])">
+                <img src="assets/images/proyecto4.jpg" alt="Control Volumétrico">
                 <div class="portfolio-overlay">
-                    <h3>Sistema Control Volumétrico</h3>
-                    <p>Un Sistema de Control Volumétrico contempla a todos los involucrados en la cadena de hidrocarburos.</p>
+                    <h3>Control Volumétrico</h3>
+                    <p>Click para ver más</p>
                 </div>
             </div>
-            <div class="portfolio-item" onclick="openModal('Aplicación Móvil', 'App para gestión de tareas en iOS y Android.', ['assets/images/proyecto5.jpg'])">
-                <img src="assets/images/proyecto5.jpg" alt="Aplicación móvil">
+
+            <!-- Proyecto 5 -->
+            <div class="portfolio-item" onclick="openCarousel('App Móvil', 'Aplicación nativa con sincronización en la nube y notificaciones push.', ['assets/images/proyecto5.jpg', 'images/app-movil-2.jpg'])">
+                <img src="assets/images/proyecto5.jpg" alt="App Móvil">
                 <div class="portfolio-overlay">
-                    <h3>Aplicación Móvil</h3>
-                    <p>App para gestión de tareas en iOS y Android.</p>
+                    <h3>App Móvil</h3>
+                    <p>Click para ver más</p>
                 </div>
             </div>
-            <div class="portfolio-item" onclick="openModal('Dashboard', 'Panel de control para análisis de datos empresariales.', ['assets/images/proyecto6.jpg'])">
-                <img src="assets/images/proyecto6.jpg" alt="Dashboard empresarial">
+
+            <!-- Proyecto 6 -->
+            <div class="portfolio-item" onclick="openCarousel('Dashboard', 'Panel de análisis de datos con gráficos interactivos y reportes PDF.', ['assets/images/proyecto7.jpg', 'assets/images/proyecto7-1.jpg'])">
+                <img src="assets/images/proyecto7.jpg" alt="Dashboard">
                 <div class="portfolio-overlay">
-                    <h3>Dashboard</h3>
-                    <p>Panel de control para análisis de datos empresariales.</p>
+                    <h3>Dashboard Empresarial</h3>
+                    <p>Click para ver más</p>
                 </div>
             </div>
+
         </div>
-        <!-- Modal -->
+
+        <!-- Modal del Carrusel -->
         <div id="portfolioModal" class="modal">
             <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
+                <span class="close" onclick="closeCarousel()">&times;</span>
                 <h3 id="modalTitle"></h3>
                 <p id="modalDescription"></p>
-                <div id="modalImages"></div>
+                <div class="carousel-container">
+                    <div class="carousel-images" id="carouselImages"></div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" onclick="changeSlide(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-btn" onclick="changeSlide(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carouselIndicators"></div>
             </div>
         </div>
     </section>
 
-    <!-- Sección about -->
+    <!-- Sobre Mí -->
     <section id="about" class="about">
         <div id="about-particles" class="particles-bg"></div>
-        <h2>Acerca de Mi</h2>
+        <h2>Acerca de Mí</h2>
         <div class="about-content">
             <div class="about-text">
-                <p>Soy un desarrollador web y de aplicaciones con mas de 7 años de experiencia creando soluciones digitales a la medida.</p>
+                <p>Soy un desarrollador web y de soluciones digitales con más de 7 años de experiencia creando soluciones digitales a la medida.</p>
                 <p>Mi enfoque se centra en la calidad, la eficiencia y la innovación, asegurando que cada proyecto no solo cumpla con los objetivos de mis clientes, sino que los supere.</p>
-                <p>Explora mi portafolio y descubre cómo puedo aportar valor a tu próximo proyecto.</p><br>
+                <p>Explora mi portafolio y descubre cómo puedo aportar valor a tu próximo proyecto.</p>
+                <br>
                 <a href="https://www.linkedin.com/in/ramses-urquijo-022104217/" target="_blank" class="cta-button">Me gustan los retos.</a>
             </div>
             <div class="about-image">
@@ -335,139 +1220,218 @@
             </div>
         </div>
     </section>
-    <!-- Sección Herramientas -->
+
+    <!-- Herramientas -->
     <section id="tools" class="tools">
         <div id="tools-particles" class="particles-bg"></div>
         <h2>Herramientas y Tecnologías</h2>
         <div class="tools-grid">
-            <div class="tool-item">
-                <i class="fas fa-code fa-2x"></i>
-                <p>Visual Studio</p>
-            </div>
-            <div class="tool-item">
-                <i class="fas fa-database fa-2x"></i>
-                <p>SQL Server</p>
-            </div>
-            <div class="tool-item">
-                <i class="fab fa-php fa-2x"></i>
-                <p>PHP</p>
-            </div>
-            <div class="tool-item">
-                <i class="fab fa-github fa-2x"></i>
-                <p>GitHub</p>
-            </div>
-            <div class="tool-item">
-                <i class="fas fa-laptop-code fa-2x"></i>
-                <p>C#</p>
-            </div>
-            <div class="tool-item">
-                <i class="fas fa-network-wired fa-2x"></i>
-                <p>Postman</p>
-            </div>
-            <div class="tool-item">
-                <i class="fab fa-js fa-2x"></i>
-                <p>JavaScript</p>
-            </div>
-            <div class="tool-item">
-                <i class="fab fa-html5 fa-2x"></i>
-                <p>HTML5</p>
-            </div>
-            <div class="tool-item">
-                <i class="fab fa-css3-alt fa-2x"></i>
-                <p>CSS3</p>
-            </div>
-            <div class="tool-item">
-                <i class="fa-brands fa-bootstrap"></i>
-                <p>Bootstrap</p>
-            </div>
-            <div class="tool-item">
-                <i class="fa-solid fa-paint-brush"></i>
-                <p>Adobe Photoshop</p>
-            </div>
-            <div class="tool-item">
-                <i class="fa-brands fa-wordpress"></i>
-                <p>WordPress</p>
-            </div>
-            <div class="tool-item">
-                <i class="fa-brands fa-jira"></i>
-                <p>Jira</p>
-            </div>
-            <div class="tool-item">
-                <i class="fa-brands fa-figma"></i>
-                <p>Figma</p>
-            </div>
+            <div class="tool-item"><i class="fas fa-code"></i><p>Visual Studio</p></div>
+            <div class="tool-item"><i class="fas fa-database"></i><p>SQL Server</p></div>
+            <div class="tool-item"><i class="fab fa-php"></i><p>PHP</p></div>
+            <div class="tool-item"><i class="fab fa-github"></i><p>GitHub</p></div>
+            <div class="tool-item"><i class="fas fa-laptop-code"></i><p>C#</p></div>
+            <div class="tool-item"><i class="fas fa-network-wired"></i><p>Postman</p></div>
+            <div class="tool-item"><i class="fab fa-js"></i><p>JavaScript</p></div>
+            <div class="tool-item"><i class="fab fa-html5"></i><p>HTML5</p></div>
+            <div class="tool-item"><i class="fab fa-css3-alt"></i><p>CSS3</p></div>
+            <div class="tool-item"><i class="fa-brands fa-bootstrap"></i><p>Bootstrap</p></div>
+            <div class="tool-item"><i class="fa-solid fa-paint-brush"></i><p>Photoshop</p></div>
+            <div class="tool-item"><i class="fa-brands fa-wordpress"></i><p>WordPress</p></div>
+            <div class="tool-item"><i class="fa-brands fa-jira"></i><p>Jira</p></div>
+            <div class="tool-item"><i class="fa-brands fa-figma"></i><p>Figma</p></div>
         </div>
     </section>
 
-    <!-- Sección Contacto -->
+    <!-- Contacto -->
     <section id="contact" class="contact">
         <div id="contact-particles" class="particles-bg"></div>
         <h2>Contacto</h2>
         <form class="contact-form" action="https://formspree.io/f/tu-id" method="POST">
-            <input type="text" name="name" placeholder="Nombre" required>
-            <input type="email" name="email" placeholder="Correo" required>
-            <textarea name="message" placeholder="Mensaje" required></textarea>
-            <button type="submit">Enviar</button>
+            <input type="text" name="name" placeholder="Tu Nombre" required>
+            <input type="email" name="email" placeholder="tu@email.com" required>
+            <textarea name="message" placeholder="Escribe tu mensaje aquí..." required></textarea>
+            <button type="submit">Enviar Mensaje</button>
         </form>
     </section>
-    <!-- Sección Versículo -->
+
+    <!-- Versículo -->
     <section id="verse" class="verse">
         <div id="verse-particles" class="particles-bg"></div>
         <div class="verse-content">
             <blockquote>
-                <p>"Y todo lo que hagan, háganlo de buen ánimo como para el Señor y no para los hombres" <br>— Colosenses 3:23</p>
+                <p>Y todo lo que hagan, háganlo de buen ánimo como para el Señor y no para los hombres — Colosenses 3:23</p>
             </blockquote>
         </div>
     </section>
 
-    <!-- Pie de página -->
+    <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <p>© <script>document.write(new Date().getFullYear())</script> Mi Sitio Web. Todos los derechos reservados.</p>
-            <p>Contacto: ramurquijo@gmail.com</p>
-            <div class="social-links">
-                <a href="https://www.facebook.com/ramses.vasquez/" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/ramurquijo/" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/ramses-urquijo-022104217/" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://wa.me/526623465710" aria-label="Contactar por WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
-            </div>
+        <p>© <span id="currentYear"></span> Ramses Urquijo. Todos los derechos reservados.</p>
+        <p>ramurquijo@gmail.com</p>
+        <div>
+            <a href="https://www.facebook.com/ramses.vasquez/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/ramurquijo/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/ramses-urquijo-022104217/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://wa.me/526623465710" target="_blank"><i class="fab fa-whatsapp"></i></a>
         </div>
     </footer>
-    <script src="js/main.js"></script>
-    <script src="js/animations.js"></script>
+
     <script>
-        function openModal(title, description, images) {
-            const modal = document.getElementById('portfolioModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalDescription = document.getElementById('modalDescription');
-            const modalImages = document.getElementById('modalImages');
+        // Año actual
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-            modalTitle.textContent = title;
-            modalDescription.textContent = description;
-            modalImages.innerHTML = '';
+        // Menú hamburguesa
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('open');
+            navLinks.classList.toggle('open');
+        });
 
-            images.forEach(src => {
+        // Cerrar menú al hacer clic en enlace
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('open');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Carrusel héroe
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+
+        // Modal carrusel
+        let currentModalSlide = 0;
+        let modalImages = [];
+
+        window.openCarousel = function(title, desc, images) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = desc;
+            modalImages = images;
+            currentModalSlide = 0;
+
+            const carousel = document.getElementById('carouselImages');
+            const indicators = document.getElementById('carouselIndicators');
+            carousel.innerHTML = '';
+            indicators.innerHTML = '';
+
+            images.forEach((src, i) => {
                 const img = document.createElement('img');
                 img.src = src;
-                img.alt = title;
-                modalImages.appendChild(img);
+                img.className = 'carousel-image';
+                if (i === 0) img.classList.add('active');
+                carousel.appendChild(img);
+
+                const dot = document.createElement('span');
+                dot.className = 'carousel-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(i);
+                indicators.appendChild(dot);
             });
 
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('portfolioModal');
-            modal.style.display = 'none';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('portfolioModal');
-            if (event.target === modal) {
-                closeModal();
-            }
+            document.getElementById('portfolioModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         };
+
+        window.closeCarousel = function() {
+            document.getElementById('portfolioModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
+        window.changeSlide = function(dir) {
+            const imgs = document.querySelectorAll('.carousel-image');
+            const dots = document.querySelectorAll('.carousel-dot');
+            imgs[currentModalSlide].classList.remove('active');
+            dots[currentModalSlide].classList.remove('active');
+            currentModalSlide = (currentModalSlide + dir + modalImages.length) % modalImages.length;
+            imgs[currentModalSlide].classList.add('active');
+            dots[currentModalSlide].classList.add('active');
+        };
+
+        window.goToSlide = function(i) {
+            const imgs = document.querySelectorAll('.carousel-image');
+            const dots = document.querySelectorAll('.carousel-dot');
+            imgs[currentModalSlide].classList.remove('active');
+            dots[currentModalSlide].classList.remove('active');
+            currentModalSlide = i;
+            imgs[i].classList.add('active');
+            dots[i].classList.add('active');
+        };
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(e) {
+            const modal = document.getElementById('portfolioModal');
+            if (e.target === modal) closeCarousel();
+        };
+
+        // Teclas en modal
+        document.addEventListener('keydown', e => {
+            if (document.getElementById('portfolioModal').style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+                if (e.key === 'ArrowRight') changeSlide(1);
+                if (e.key === 'Escape') closeCarousel();
+            }
+        });
+
+        // Particles.js en todas las secciones
+        function initParticles(id) {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS(`${id}-particles`, {
+                    particles: {
+                        number: { value: 40, density: { enable: true, value_area: 800 } },
+                        color: { value: '#00aaff' },
+                        shape: { type: 'circle' },
+                        opacity: { value: 0.3, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: { enable: true, distance: 150, color: '#00aaff', opacity: 0.2, width: 1 },
+                        move: { enable: true, speed: 1 }
+                    },
+                    interactivity: {
+                        events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' } }
+                    }
+                });
+            }
+        }
+        if (window.innerWidth <= 768) {
+            // Menos partículas en móvil
+            function initMobileParticles(id) {
+                if (typeof particlesJS !== 'undefined') {
+                    particlesJS(`${id}-particles`, {
+                        particles: {
+                            number: { value: 20 },
+                            color: { value: '#00aaff' },
+                            opacity: { value: 0.2 },
+                            size: { value: 2 },
+                            line_linked: { enable: false },
+                            move: { speed: 0.5 }
+                        },
+                        interactivity: { events: { onhover: { enable: false } } }
+                    });
+                }
+            }
+            ['services', 'portfolio', 'about', 'tools', 'contact', 'verse'].forEach(initMobileParticles);
+        } else {
+            ['services', 'portfolio', 'about', 'tools', 'contact', 'verse'].forEach(initParticles);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
     </script>
 </body>
 </html>
