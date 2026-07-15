@@ -7,7 +7,7 @@
     <title>Portafolio - Ramses</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <style>
         /* Variables */
         :root {
@@ -1127,7 +1127,7 @@
 
             <!-- Proyecto 1 -->
             <div class="portfolio-item" onclick="openCarousel('Sitio Corporativo', 'Plataforma web para empresa tecnológica con panel admin y CMS integrado.', ['assets/images/proyecto1.jpg', 'assets/images/proyectomiramar2.jpg','assets/images/proyectomiramar3.jpg','assets/images/proyectomiramar4.jpg'])">
-                <img src="assets/images/proyecto1.jpg" alt="Sitio Corporativo">
+                <img src="assets/images/proyecto1.jpg" loading="lazy" alt="Sitio Corporativo">
                 <div class="portfolio-overlay">
                     <h3>Sitio Corporativo</h3>
                     <p>Click para ver más</p>
@@ -1136,7 +1136,7 @@
 
             <!-- Proyecto 2 -->
             <div class="portfolio-item" onclick="openCarousel('App Médica', 'Sistema de gestión de citas y pacientes con notificaciones en tiempo real.', ['assets/images/proyecto2.jpg', 'assets/images/app-medica-2.jpg'])">
-                <img src="assets/images/proyecto2.jpg" alt="App Médica">
+                <img src="assets/images/proyecto2.jpg" alt="App Médica" loading="lazy">
                 <div class="portfolio-overlay">
                     <h3>App Médica</h3>
                     <p>Click para ver más</p>
@@ -1145,7 +1145,7 @@
 
             <!-- Proyecto 3 -->
             <div class="portfolio-item" onclick="openCarousel('E-commerce', 'Pagina personal online con carrito, pasarela de pago y panel de vendedor.', ['assets/images/proyecto3.jpg', 'assets/images/proyecto3-2.jpg','assets/images/proyecto3-admin.jpg','assets/images/proyecto3-carrito.jpg','assets/images/proyecto3-pasarela.jpg','assets/images/proyecto3-cobro.jpg'])">
-                <img src="assets/images/proyecto3.jpg" alt="E-commerce">
+                <img src="assets/images/proyecto3.jpg" alt="E-commerce" loading="lazy">
                 <div class="portfolio-overlay">
                     <h3>E-commerce</h3>
                     <p>Click para ver más</p>
@@ -1154,7 +1154,7 @@
 
             <!-- Proyecto 4 -->
             <div class="portfolio-item" onclick="openCarousel('Control Volumétrico', 'Sistema de monitoreo en tiempo real para hidrocarburos.', ['assets/images/proyecto-4.jpg', 'assets/images/proyecto-4-2.jpg'])">
-                <img src="assets/images/proyecto-4.jpg" alt="Control Volumétrico">
+                <img src="assets/images/proyecto-4.jpg" alt="Control Volumétrico" loading="lazy">
                 <div class="portfolio-overlay">
                     <h3>Control Volumétrico</h3>
                     <p>Click para ver más</p>
@@ -1163,7 +1163,7 @@
 
             <!-- Proyecto 5 -->
             <div class="portfolio-item" onclick="openCarousel('App Móvil', 'Aplicación nativa con sincronización en la nube y notificaciones push.', ['assets/images/proyecto5.jpg', 'assets/images/app-movil-2.jpg'])">
-                <img src="assets/images/proyecto5.jpg" alt="App Móvil">
+                <img src="assets/images/proyecto5.jpg" alt="App Móvil" loading="lazy">
                 <div class="portfolio-overlay">
                     <h3>App Móvil</h3>
                     <p>Click para ver más</p>
@@ -1172,7 +1172,7 @@
 
             <!-- Proyecto 6 -->
             <div class="portfolio-item" onclick="openCarousel('Dashboard', 'Panel de análisis de datos con gráficos interactivos y reportes PDF.', ['assets/images/proyecto7.JPG', 'assets/images/proyecto7-1.JPG',  'assets/images/proyecto7-3.JPG'])">
-                <img src="assets/images/proyecto7.JPG" alt="Dashboard">
+                <img src="assets/images/proyecto7.JPG" alt="Dashboard" loading="lazy">
                 <div class="portfolio-overlay">
                     <h3>Dashboard Empresarial</h3>
                     <p>Click para ver más</p>
@@ -1180,7 +1180,7 @@
             </div>
             <!-- Proyecto 7 -->
             <div class="portfolio-item" onclick="openCarousel('Chat Ventas en Vivo', 'Chat en tiempo real donde se pueden hacer compras, enviar fotos, hacer carritos de comrpas, etc.', ['assets/images/chat1.JPG', 'assets/images/chat.JPG', 'assets/images/chat2.JPG', 'assets/images/chat3.JPG'])">
-                <img src="assets/images/chat1.JPG" alt="Chat Ventas en Vivo">
+                <img src="assets/images/chat1.JPG" alt="Chat Ventas en Vivo" loading="lazy">
                 <div class="portfolio-overlay">
                     <h3>Chat Ventas en Vivo</h3>
                     <p>Click para ver más</p>
@@ -1307,9 +1307,14 @@
         });
 
         // Navbar scroll
+       const navbar = document.querySelector('.navbar');
+
         window.addEventListener('scroll', () => {
-            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
-        });
+            navbar.classList.toggle(
+                'scrolled',
+                window.scrollY > 50
+            );
+        }, { passive: true });
 
         // Carrusel héroe
         const slides = document.querySelectorAll('.hero-slide');
@@ -1336,19 +1341,21 @@
             indicators.innerHTML = '';
 
             images.forEach((src, i) => {
+
                 const img = document.createElement('img');
+
                 img.src = src;
-                img.className = 'carousel-image';
-                if (i === 0) img.classList.add('active');
+                img.loading = "lazy";
+                img.decoding = "async";
+                img.className = "carousel-image";
+
+                if(i === 0){
+                    img.classList.add("active");
+                }
+
                 carousel.appendChild(img);
 
-                const dot = document.createElement('span');
-                dot.className = 'carousel-dot';
-                if (i === 0) dot.classList.add('active');
-                dot.onclick = () => goToSlide(i);
-                indicators.appendChild(dot);
             });
-
             document.getElementById('portfolioModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         };
@@ -1412,27 +1419,16 @@
                 });
             }
         }
-        if (window.innerWidth <= 768) {
-            // Menos partículas en móvil
-            function initMobileParticles(id) {
-                if (typeof particlesJS !== 'undefined') {
-                    particlesJS(`${id}-particles`, {
-                        particles: {
-                            number: { value: 20 },
-                            color: { value: '#00aaff' },
-                            opacity: { value: 0.2 },
-                            size: { value: 2 },
-                            line_linked: { enable: false },
-                            move: { speed: 0.5 }
-                        },
-                        interactivity: { events: { onhover: { enable: false } } }
-                    });
-                }
+        window.addEventListener('load', () => {
+
+        if (window.innerWidth > 768) {
+
+                initParticles('services');
+                initParticles('portfolio');
+
             }
-            ['services', 'portfolio', 'about', 'tools', 'contact', 'verse'].forEach(initMobileParticles);
-        } else {
-            ['services', 'portfolio', 'about', 'tools', 'contact', 'verse'].forEach(initParticles);
-        }
+
+        });
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(a => {
